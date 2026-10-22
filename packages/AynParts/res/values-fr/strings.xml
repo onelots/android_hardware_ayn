@@ -33,4 +33,32 @@
     <string name="calibration_test_after">Après (calibré)</string>
     <string name="lights_rgb_left_category_title">Gauche</string>
     <string name="lights_rgb_right_category_title">Droite</string>
+
+    <!-- Fan control category -->
+    <string name="fan_category_title">Thermique et ventilateur</string>
+    <string name="fan_settings_title">Contrôle du ventilateur</string>
+    <string name="fan_settings_summary">Gérer la vitesse et les profils de ventilation</string>
+
+    <!-- Fan QS tile -->
+    <string name="fan_tile_title">Ventilateur</string>
+    <string name="fan_tile_label_format">Ventilateur : %s</string>
+
+    <!-- Fan profiles -->
+    <string name="fan_profile_auto">Automatique</string>
+    <string name="fan_profile_auto_desc">Régulation dynamique gérée par le système thermique</string>
+    <string name="fan_profile_quiet">Silencieux</string>
+    <string name="fan_profile_quiet_desc">Vitesse 15 % • Faible bruit pour le jeu occasionnel et le multimédia</string>
+    <string name="fan_profile_medium">Moyen</string>
+    <string name="fan_profile_medium_desc">Vitesse 40 % • Équilibre entre flux d\'air et acoustique</string>
+    <string name="fan_profile_high">Élevé</string>
+    <string name="fan_profile_high_desc">Vitesse 70 % • Refroidissement performant pour jeux 3D exigeants</string>
+    <string name="fan_profile_max">Maximum</string>
+    <string name="fan_profile_max_desc">Vitesse 100 % • Dissipation thermique maximale</string>
+
+    <!-- Fan UI details -->
+    <string name="fan_status_dynamic">Courbe thermique dynamique</string>
+    <string name="fan_status_manual">Vitesse manuelle : %d %%</string>
+    <string name="fan_pwm_label">PWM : %1$d / %2$d</string>
+    <string name="fan_temp_label">SoC : %.1f °C</string>
+    <string name="fan_dialog_more_settings">Plus de paramètres</string>
 </resources>

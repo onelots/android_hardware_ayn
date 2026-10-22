@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.preference.PreferenceManager
+import org.lineageos.settings.ayn.fan.FanController
 import org.lineageos.settings.ayn.joystick.CalibrationPersistence
 import org.lineageos.settings.ayn.lights.RGBLightingController
 import org.lineageos.settings.ayn.utils.LightUtils
@@ -38,6 +39,11 @@ class BootCompletedReceiver : BroadcastReceiver() {
         // Restore rgb lighting
         if (LightUtils.supportsRGB) {
             RGBLightingController.restoreOnBoot(context)
+        }
+
+        // Restore fan profile
+        if (FanController.isSupported()) {
+            FanController.restoreOnBoot(context)
         }
     }
 

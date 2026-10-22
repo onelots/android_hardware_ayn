@@ -82,5 +82,10 @@
             android:name=".lights.RGBLightingSettingsActivity"
             android:label="@string/gamepad_lights_rgb_lighting_title"
             android:exported="false" />
+
+        <!-- FanService -->
+        <service
+            android:name=".fan.FanService"
+            android:exported="false" />
     </application>
 </manifest>

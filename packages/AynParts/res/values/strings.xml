@@ -123,4 +123,32 @@
 
     <!-- Built-in controller -->
     <string name="builtin_controller">Built-in controller</string>
+
+    <!-- Fan control category -->
+    <string name="fan_category_title">Thermal &amp; fan</string>
+    <string name="fan_settings_title">Fan control</string>
+    <string name="fan_settings_summary">Control cooling fan speed and profiles</string>
+
+    <!-- Fan QS tile -->
+    <string name="fan_tile_title">Fan</string>
+    <string name="fan_tile_label_format">Fan: %s</string>
+
+    <!-- Fan profiles -->
+    <string name="fan_profile_auto">Auto</string>
+    <string name="fan_profile_auto_desc">Dynamic cooling managed automatically by the thermal system</string>
+    <string name="fan_profile_quiet">Quiet</string>
+    <string name="fan_profile_quiet_desc">15% speed • Low noise for casual gaming and media</string>
+    <string name="fan_profile_medium">Medium</string>
+    <string name="fan_profile_medium_desc">40% speed • Balanced airflow and acoustics</string>
+    <string name="fan_profile_high">High</string>
+    <string name="fan_profile_high_desc">70% speed • High cooling performance for demanding 3D gaming</string>
+    <string name="fan_profile_max">Max</string>
+    <string name="fan_profile_max_desc">100% speed • Maximum heat dissipation</string>
+
+    <!-- Fan UI details -->
+    <string name="fan_status_dynamic">Dynamic thermal curve</string>
+    <string name="fan_status_manual">Manual speed: %d%%</string>
+    <string name="fan_pwm_label">PWM: %1$d / %2$d</string>
+    <string name="fan_temp_label">SoC: %.1f°C</string>
+    <string name="fan_dialog_more_settings">More settings</string>
 </resources>
