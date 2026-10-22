@@ -5,8 +5,10 @@
 
 package org.lineageos.settings.ayn.fan
 
+import android.content.ComponentName
 import android.content.Context
 import android.content.SharedPreferences
+import android.service.quicksettings.TileService
 import android.util.Log
 import androidx.preference.PreferenceManager
 import java.io.File
@@ -71,6 +73,16 @@ object FanController {
 
         applyProfile(profile)
         FanService.updateServiceState(context, profile)
+
+        // Request QS tile update
+        try {
+            TileService.requestListeningState(
+                context,
+                ComponentName(context, FanTileService::class.java),
+            )
+        } catch (e: Exception) {
+            Log.w(TAG, "Failed to request tile update", e)
+        }
     }
 
     fun cycleProfile(context: Context): FanProfile {

@@ -93,6 +93,29 @@
             </intent-filter>
         </activity>
 
+        <!-- FanDialogActivity -->
+        <activity
+            android:name=".fan.FanDialogActivity"
+            android:label="@string/fan_tile_title"
+            android:theme="@style/Theme.SubSettingsBase.Expressive"
+            android:excludeFromRecents="true"
+            android:exported="true" />
+
+        <!-- FanTileService -->
+        <service
+            android:name=".fan.FanTileService"
+            android:icon="@drawable/ic_fan"
+            android:label="@string/fan_tile_title"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="true" />
+        </service>
+
         <!-- FanService -->
         <service
             android:name=".fan.FanService"
