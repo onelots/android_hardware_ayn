@@ -83,6 +83,16 @@
             android:label="@string/gamepad_lights_rgb_lighting_title"
             android:exported="false" />
 
+        <!-- FanSettingsActivity -->
+        <activity
+            android:name=".fan.FanSettingsActivity"
+            android:label="@string/fan_settings_title"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
+            </intent-filter>
+        </activity>
+
         <!-- FanService -->
         <service
             android:name=".fan.FanService"

@@ -106,4 +106,19 @@
                     android:targetClass="org.lineageos.settings.ayn.lights.RGBLightingSettingsActivity" />
         </Preference>
     </PreferenceCategory>
+
+    <!-- Thermal & Fan category -->
+    <PreferenceCategory
+        android:key="thermal_fan_category"
+        android:title="@string/fan_category_title">
+
+        <!-- Fan settings preference -->
+        <Preference
+            android:key="fan_settings"
+            android:title="@string/fan_settings_title"
+            android:summary="@string/fan_settings_summary" >
+            <intent android:targetPackage="org.lineageos.settings.ayn"
+                    android:targetClass="org.lineageos.settings.ayn.fan.FanSettingsActivity" />
+        </Preference>
+    </PreferenceCategory>
 </PreferenceScreen>

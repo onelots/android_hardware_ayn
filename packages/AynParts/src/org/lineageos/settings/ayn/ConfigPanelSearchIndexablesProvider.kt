@@ -19,6 +19,7 @@ import android.provider.SearchIndexablesContract.INDEXABLES_RAW_COLUMNS
 import android.provider.SearchIndexablesContract.INDEXABLES_XML_RES_COLUMNS
 import android.provider.SearchIndexablesContract.NON_INDEXABLES_KEYS_COLUMNS
 import android.provider.SearchIndexablesProvider
+import org.lineageos.settings.ayn.fan.FanController
 import org.lineageos.settings.ayn.utils.LightUtils
 import org.lineageos.settings.ayn.utils.NodeUtils
 
@@ -40,6 +41,10 @@ class ConfigPanelSearchIndexablesProvider : SearchIndexablesProvider() {
             if (!LightUtils.supportsRGB) {
                 addRow(arrayOf(KEY_GAMEPAD_LIGHTS_CATEGORY))
                 addRow(arrayOf(KEY_GAMEPAD_RGB_LIGHTS))
+            }
+            if (!FanController.isSupported()) {
+                addRow(arrayOf(KEY_THERMAL_FAN_CATEGORY))
+                addRow(arrayOf(KEY_FAN_SETTINGS))
             }
             NODE_PREFERENCES.forEach { (key, nodePath) ->
                 if (!NodeUtils.exists("$JOYSTICK_PATH/$nodePath")) {
@@ -66,6 +71,9 @@ class ConfigPanelSearchIndexablesProvider : SearchIndexablesProvider() {
 
         private const val KEY_GAMEPAD_LIGHTS_CATEGORY = "gamepad_lights_category"
         private const val KEY_GAMEPAD_RGB_LIGHTS = "gamepad_rgb_lights"
+
+        private const val KEY_THERMAL_FAN_CATEGORY = "thermal_fan_category"
+        private const val KEY_FAN_SETTINGS = "fan_settings"
 
         private const val JOYSTICK_PATH = "/sys/class/moorechip-joystick/joystick"
 

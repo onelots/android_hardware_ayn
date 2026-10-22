@@ -10,6 +10,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import com.android.settingslib.widget.SettingsBasePreferenceFragment
 import org.lineageos.internal.util.ControllerUtils
+import org.lineageos.settings.ayn.fan.FanController
 import org.lineageos.settings.ayn.utils.LightUtils
 
 class AynSettingsFragment :
@@ -32,6 +33,12 @@ class AynSettingsFragment :
                 preferenceScreen.removePreference(it)
             }
         }
+
+        if (!FanController.isSupported()) {
+            findPreference<PreferenceCategory>(KEY_THERMAL_FAN_CATEGORY)?.let {
+                preferenceScreen.removePreference(it)
+            }
+        }
     }
 
     override fun onPreferenceChange(preference: Preference, newValue: Any?): Boolean {
@@ -41,6 +48,7 @@ class AynSettingsFragment :
     companion object {
         private const val KEY_GAMEPAD_REMAPPING = "gamepad_remapping"
         private const val KEY_GAMEPAD_LIGHTS_CATEGORY = "gamepad_lights_category"
+        private const val KEY_THERMAL_FAN_CATEGORY = "thermal_fan_category"
 
         // :045e:028e:uniqueId:moorechip
         private const val CONTROLLER_DESCRIPTOR = "90dfbbe0bbbab74642c53cae4ae0aa640d40ec21"
