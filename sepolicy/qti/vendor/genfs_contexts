@@ -15,3 +15,6 @@ genfscon sysfs /devices/platform/soc/ac0000.qcom,qupv3_1_geni_se/a80000.i2c/i2c-
 
 # Moorechip joystick
 genfscon sysfs /devices/virtual/moorechip-joystick/joystick u:object_r:vendor_sysfs_joystick:s0
+
+# Fan
+genfscon sysfs /devices/platform/soc/c42d000.qcom,spmi/spmi-0/0-01/c42d000.qcom,spmi:qcom,pm8550@1:pwm-fan@0 u:object_r:vendor_sysfs_fan:s0

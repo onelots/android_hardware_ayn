@@ -1,2 +1,3 @@
 attribute vendor_sysfs_ayn_leds_type;
+attribute vendor_sysfs_fan_type;
 attribute vendor_sysfs_joystick_type;
