@@ -23,6 +23,7 @@ object FanController {
     private const val PREF_FAN_PROFILE = "fan_profile"
 
     private const val HWMON_BASE = "/sys/class/hwmon"
+    private const val THERMAL_BASE = "/sys/class/thermal"
 
     // Primary SoC temperature sensor zone (cpu-1-9 / thermal_zone14 on Kalama)
     private const val PRIMARY_THERMAL_ZONE = "/sys/class/thermal/thermal_zone14/temp"
@@ -41,8 +42,9 @@ object FanController {
     private fun findFanPwmNode(): File? {
         try {
             val hwmonDir = File(HWMON_BASE)
-            if (hwmonDir.exists() && hwmonDir.isDirectory) {
-                hwmonDir.listFiles()?.forEach { dir ->
+            val dirs = hwmonDir.listFiles()
+            if (dirs != null) {
+                for (dir in dirs) {
                     val nameFile = File(dir, "name")
                     if (nameFile.exists() && nameFile.readText().trim() == "pwmfan") {
                         val pwmFile = File(dir, "pwm1")
@@ -60,8 +62,9 @@ object FanController {
     private fun findFanCoolingDeviceNode(): File? {
         try {
             val thermalDir = File(THERMAL_BASE)
-            if (thermalDir.exists() && thermalDir.isDirectory) {
-                thermalDir.listFiles()?.forEach { dir ->
+            val dirs = thermalDir.listFiles()
+            if (dirs != null) {
+                for (dir in dirs) {
                     if (dir.name.startsWith("cooling_device")) {
                         val typeFile = File(dir, "type")
                         if (typeFile.exists() && typeFile.readText().trim() == "pwm-fan") {
