@@ -14,6 +14,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.lineageos.settings.ayn.R
 
@@ -29,6 +31,14 @@ class FanTileService : TileService() {
         scope.launch {
             FanController.currentProfileFlow.collect { profile ->
                 updateTile(profile)
+            }
+        }
+        scope.launch {
+            while (isActive) {
+                delay(2500)
+                if (FanController.getCurrentProfile(this@FanTileService) == FanProfile.CUSTOM) {
+                    updateTile(FanProfile.CUSTOM)
+                }
             }
         }
         updateTile()
@@ -67,10 +77,13 @@ class FanTileService : TileService() {
         qsTile.icon = Icon.createWithResource(this, R.drawable.ic_fan)
         qsTile.label = getString(R.string.fan_tile_title)
 
-        val sub = if (currentProfile == FanProfile.AUTO) {
-            profileName
-        } else {
-            "$profileName • ${currentProfile.percentage}%"
+        val sub = when (currentProfile) {
+            FanProfile.AUTO -> profileName
+            FanProfile.CUSTOM -> {
+                val actual = (FanController.getActualPwm() * 100 / 255)
+                "$profileName • $actual%"
+            }
+            else -> "$profileName • ${currentProfile.percentage}%"
         }
         qsTile.subtitle = sub
         qsTile.stateDescription = sub

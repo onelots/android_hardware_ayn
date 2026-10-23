@@ -233,6 +233,7 @@ fun FanDialogScreen(
                                         FanProfile.MEDIUM -> stringResource(R.string.fan_status_manual, profile.percentage)
                                         FanProfile.HIGH -> stringResource(R.string.fan_status_manual, profile.percentage)
                                         FanProfile.MAX -> stringResource(R.string.fan_status_manual, profile.percentage)
+                                        FanProfile.CUSTOM -> stringResource(R.string.fan_profile_custom_desc)
                                     }
 
                                     Text(
@@ -263,12 +264,17 @@ fun FanDialogScreen(
                                         )
                                     }
                                 } else if (profile != FanProfile.AUTO) {
+                                    val badgeText = if (profile == FanProfile.CUSTOM) {
+                                        stringResource(R.string.fan_profile_custom)
+                                    } else {
+                                        "${profile.percentage}%"
+                                    }
                                     Surface(
                                         shape = RoundedCornerShape(10.dp),
                                         color = MaterialTheme.colorScheme.surfaceVariant,
                                     ) {
                                         Text(
-                                            text = "${profile.percentage}%",
+                                            text = badgeText,
                                             style = MaterialTheme.typography.labelSmall,
                                             fontWeight = FontWeight.SemiBold,
                                             color = MaterialTheme.colorScheme.onSurfaceVariant,
