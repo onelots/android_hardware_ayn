@@ -61,7 +61,7 @@
     <string name="fan_curve_title">Courbe de ventilation personnalisée</string>
     <string name="fan_curve_summary">Réglez la vitesse pour chaque palier de température</string>
     <string name="fan_curve_reset">Réinitialiser la courbe</string>
-    <string name="fan_curve_current_point">Actuel : %.1f °C ➔ %d %%</string>
+    <string name="fan_curve_current_point">Actuel : %1$.1f °C ➔ %2$d %%</string>
 
     <!-- Fan UI details -->
     <string name="fan_status_dynamic">Courbe thermique dynamique</string>
