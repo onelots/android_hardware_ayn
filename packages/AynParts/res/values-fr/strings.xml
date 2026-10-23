@@ -54,6 +54,8 @@
     <string name="fan_profile_high_desc">Vitesse 70 % • Refroidissement performant pour jeux 3D exigeants</string>
     <string name="fan_profile_max">Maximum</string>
     <string name="fan_profile_max_desc">Vitesse 100 % • Dissipation thermique maximale</string>
+    <string name="fan_profile_custom">Personnalisé</string>
+    <string name="fan_profile_custom_desc">Courbe thermique personnalisée selon la température du SoC</string>
 
     <!-- Fan custom curve -->
     <string name="fan_curve_title">Courbe de ventilation personnalisée</string>

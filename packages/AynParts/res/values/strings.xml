@@ -144,6 +144,8 @@
     <string name="fan_profile_high_desc">70% speed • High cooling performance for demanding 3D gaming</string>
     <string name="fan_profile_max">Max</string>
     <string name="fan_profile_max_desc">100% speed • Maximum heat dissipation</string>
+    <string name="fan_profile_custom">Custom</string>
+    <string name="fan_profile_custom_desc">Custom thermal curve based on SoC temperature</string>
 
     <!-- Fan custom curve -->
     <string name="fan_curve_title">Custom fan curve</string>

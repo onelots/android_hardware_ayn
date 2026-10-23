@@ -100,7 +100,7 @@ object FanController {
         getPrefs(context).edit().putString(PREF_FAN_PROFILE, profile.id).apply()
         _currentProfileFlow.value = profile
 
-        applyProfile(profile)
+        applyProfile(profile, context)
         FanService.updateServiceState(context, profile)
 
         // Request QS tile update
@@ -123,7 +123,36 @@ object FanController {
         return next
     }
 
-    private fun applyProfile(profile: FanProfile) {
+    fun setCustomPwm(percentage: Int) {
+        val targetPwm = (percentage * 255 / 100).coerceIn(0, 255)
+
+        val cdevState = when {
+            percentage == 0 -> 0
+            percentage <= 18 -> 1   // State 1: 40 PWM
+            percentage <= 32 -> 3   // State 3: 75 PWM
+            percentage <= 45 -> 5   // State 5: 100 PWM
+            percentage <= 65 -> 7   // State 7: 150 PWM
+            else -> 8               // State 8: 175 PWM
+        }
+
+        fanCoolingDeviceNode?.let { cdevNode ->
+            NodeUtils.write(cdevNode.absolutePath, cdevState.toString())
+        }
+
+        fanPwmNode?.let { pwmNode ->
+            NodeUtils.write(pwmNode.absolutePath, targetPwm.toString())
+        }
+    }
+
+    private fun applyProfile(profile: FanProfile, context: Context? = null) {
+        if (profile == FanProfile.CUSTOM && context != null) {
+            val temp = getSocTemperature() ?: 45f
+            val curve = FanCurve.getCurve(context)
+            val speed = FanCurve.evaluate(curve, temp)
+            setCustomPwm(speed)
+            return
+        }
+
         // Sync with kernel thermal cooling device
         fanCoolingDeviceNode?.let { cdevNode ->
             val cdevState = when (profile) {
@@ -132,6 +161,7 @@ object FanController {
                 FanProfile.MEDIUM -> 6  // State 6: 120 PWM (~50%)
                 FanProfile.HIGH -> 8    // State 8: 175 PWM (~70%)
                 FanProfile.MAX -> 8     // State 8: 175 PWM + override
+                FanProfile.CUSTOM -> 0
             }
             NodeUtils.write(cdevNode.absolutePath, cdevState.toString())
         }
@@ -154,7 +184,7 @@ object FanController {
 
     fun resumeForScreenOn(context: Context) {
         val profile = getCurrentProfile(context)
-        applyProfile(profile)
+        applyProfile(profile, context)
     }
 
     fun getActualPwm(): Int {
@@ -172,7 +202,7 @@ object FanController {
     fun restoreOnBoot(context: Context) {
         val profile = getCurrentProfile(context)
         Log.i(TAG, "Restoring fan profile on boot: ${profile.id}")
-        applyProfile(profile)
+        applyProfile(profile, context)
         FanService.updateServiceState(context, profile)
     }
 }
