@@ -10,13 +10,34 @@ import android.content.Intent
 import android.graphics.drawable.Icon
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import org.lineageos.settings.ayn.R
 
 class FanTileService : TileService() {
 
+    private var listeningScope: CoroutineScope? = null
+
     override fun onStartListening() {
         super.onStartListening()
+        listeningScope?.cancel()
+        val scope = CoroutineScope(Dispatchers.Main + Job())
+        listeningScope = scope
+        scope.launch {
+            FanController.currentProfileFlow.collect { profile ->
+                updateTile(profile)
+            }
+        }
         updateTile()
+    }
+
+    override fun onStopListening() {
+        super.onStopListening()
+        listeningScope?.cancel()
+        listeningScope = null
     }
 
     override fun onClick() {
@@ -44,19 +65,17 @@ class FanTileService : TileService() {
 
         val profileName = getString(currentProfile.titleRes)
         qsTile.icon = Icon.createWithResource(this, R.drawable.ic_fan)
-        qsTile.label = getString(R.string.fan_tile_label_format, profileName)
-        qsTile.subtitle = if (currentProfile == FanProfile.AUTO) {
+        qsTile.label = getString(R.string.fan_tile_title)
+
+        val sub = if (currentProfile == FanProfile.AUTO) {
             profileName
         } else {
-            "${currentProfile.percentage}%"
+            "$profileName • ${currentProfile.percentage}%"
         }
-        qsTile.contentDescription = qsTile.label
-
-        qsTile.state = if (currentProfile == FanProfile.AUTO) {
-            Tile.STATE_INACTIVE
-        } else {
-            Tile.STATE_ACTIVE
-        }
+        qsTile.subtitle = sub
+        qsTile.stateDescription = sub
+        qsTile.contentDescription = "${qsTile.label}, $sub"
+        qsTile.state = Tile.STATE_ACTIVE
 
         qsTile.updateTile()
     }
