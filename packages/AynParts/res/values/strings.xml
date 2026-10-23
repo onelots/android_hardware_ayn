@@ -145,6 +145,12 @@
     <string name="fan_profile_max">Max</string>
     <string name="fan_profile_max_desc">100% speed • Maximum heat dissipation</string>
 
+    <!-- Fan custom curve -->
+    <string name="fan_curve_title">Custom fan curve</string>
+    <string name="fan_curve_summary">Define fan speed for temperature intervals</string>
+    <string name="fan_curve_reset">Reset curve</string>
+    <string name="fan_curve_current_point">Current: %.1f°C ➔ %d%%</string>
+
     <!-- Fan UI details -->
     <string name="fan_status_dynamic">Dynamic thermal curve</string>
     <string name="fan_status_manual">Manual speed: %d%%</string>

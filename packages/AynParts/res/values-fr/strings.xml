@@ -55,6 +55,12 @@
     <string name="fan_profile_max">Maximum</string>
     <string name="fan_profile_max_desc">Vitesse 100 % • Dissipation thermique maximale</string>
 
+    <!-- Fan custom curve -->
+    <string name="fan_curve_title">Courbe de ventilation personnalisée</string>
+    <string name="fan_curve_summary">Réglez la vitesse pour chaque palier de température</string>
+    <string name="fan_curve_reset">Réinitialiser la courbe</string>
+    <string name="fan_curve_current_point">Actuel : %.1f °C ➔ %d %%</string>
+
     <!-- Fan UI details -->
     <string name="fan_status_dynamic">Courbe thermique dynamique</string>
     <string name="fan_status_manual">Vitesse manuelle : %d %%</string>
