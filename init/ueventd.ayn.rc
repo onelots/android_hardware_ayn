@@ -19,5 +19,7 @@
 /sys/class/leds/right:*                   multi_intensity              0660    system    system
 
 # Fan
-/sys/devices/platform/soc/c42d000.qcom,spmi/spmi-0/0-01/c42d000.qcom,spmi:qcom,pm8550@1:pwm-fan@0/hwmon/hwmon*    pwm1    0660    system    system
-/sys/class/hwmon/hwmon*                                                                                            pwm1    0660    system    system
+/sys/devices/platform/soc/c42d000.qcom,spmi/spmi-0/0-01/c42d000.qcom,spmi:qcom,pm8550@1:pwm-fan@0/hwmon/hwmon*    pwm1         0660    system    system
+/sys/class/hwmon/hwmon*                                                                                            pwm1         0660    system    system
+/sys/devices/virtual/thermal/cooling_device*                                                                       cur_state    0660    system    system
+/sys/class/thermal/cooling_device*                                                                                 cur_state    0660    system    system
