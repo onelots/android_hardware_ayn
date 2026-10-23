@@ -93,14 +93,6 @@
             </intent-filter>
         </activity>
 
-        <!-- FanDialogActivity -->
-        <activity
-            android:name=".fan.FanDialogActivity"
-            android:label="@string/fan_tile_title"
-            android:theme="@style/Theme.SubSettingsBase.Expressive"
-            android:excludeFromRecents="true"
-            android:exported="true" />
-
         <!-- FanTileService -->
         <service
             android:name=".fan.FanTileService"
