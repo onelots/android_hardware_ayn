@@ -60,5 +60,7 @@
     <string name="fan_status_manual">Vitesse manuelle : %d %%</string>
     <string name="fan_pwm_label">PWM : %1$d / %2$d</string>
     <string name="fan_temp_label">SoC : %.1f °C</string>
+    <string name="fan_dialog_subtitle">Choisir un profil de refroidissement</string>
     <string name="fan_dialog_more_settings">Plus de paramètres</string>
+    <string name="fan_dialog_done">Terminé</string>
 </resources>
