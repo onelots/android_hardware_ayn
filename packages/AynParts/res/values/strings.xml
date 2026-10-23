@@ -131,7 +131,11 @@
 
     <!-- Fan QS tile -->
     <string name="fan_tile_title">Fan</string>
-    <string name="fan_tile_label_format">Fan: %s</string>
+    <string name="fan_tile_sub_auto">Auto</string>
+    <string name="fan_tile_sub_quiet">Min 30%</string>
+    <string name="fan_tile_sub_medium">Med 50%</string>
+    <string name="fan_tile_sub_high">High 70%</string>
+    <string name="fan_tile_sub_max">Max 100%</string>
 
     <!-- Fan profiles -->
     <string name="fan_profile_auto">Auto</string>

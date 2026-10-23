@@ -12,8 +12,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.lineageos.settings.ayn.R
 
@@ -29,14 +27,6 @@ class FanTileService : TileService() {
         scope.launch {
             FanController.currentProfileFlow.collect { profile ->
                 updateTile(profile)
-            }
-        }
-        scope.launch {
-            while (isActive) {
-                delay(2500)
-                if (FanController.getCurrentProfile(this@FanTileService) == FanProfile.CUSTOM) {
-                    updateTile(FanProfile.CUSTOM)
-                }
             }
         }
         updateTile()
@@ -57,20 +47,26 @@ class FanTileService : TileService() {
     private fun updateTile(currentProfile: FanProfile = FanController.getCurrentProfile(this)) {
         val qsTile = qsTile ?: return
 
-        val profileName = getString(currentProfile.titleRes)
         qsTile.icon = Icon.createWithResource(this, R.drawable.ic_fan)
         qsTile.label = getString(R.string.fan_tile_title)
 
         val sub = when (currentProfile) {
-            FanProfile.AUTO -> profileName
-            FanProfile.CUSTOM -> {
-                val actual = (FanController.getActualPwm() * 100 / 255)
-                "$profileName • $actual%"
-            }
-            else -> "$profileName • ${currentProfile.percentage}%"
+            FanProfile.QUIET -> getString(R.string.fan_tile_sub_quiet)
+            FanProfile.MEDIUM -> getString(R.string.fan_tile_sub_medium)
+            FanProfile.HIGH -> getString(R.string.fan_tile_sub_high)
+            FanProfile.MAX -> getString(R.string.fan_tile_sub_max)
+            else -> getString(R.string.fan_tile_sub_auto)
         }
         qsTile.subtitle = sub
-        qsTile.stateDescription = sub
+
+        val stateDesc = when (currentProfile) {
+            FanProfile.QUIET,
+            FanProfile.MEDIUM,
+            FanProfile.HIGH,
+            FanProfile.MAX -> "${getString(currentProfile.titleRes)}, ${currentProfile.percentage}%"
+            else -> getString(R.string.fan_profile_auto)
+        }
+        qsTile.stateDescription = stateDesc
         qsTile.contentDescription = "${qsTile.label}, $sub"
         qsTile.state = Tile.STATE_ACTIVE
 
