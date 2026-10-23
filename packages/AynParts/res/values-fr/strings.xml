@@ -47,9 +47,9 @@
     <string name="fan_profile_auto">Automatique</string>
     <string name="fan_profile_auto_desc">Régulation dynamique gérée par le système thermique</string>
     <string name="fan_profile_quiet">Silencieux</string>
-    <string name="fan_profile_quiet_desc">Vitesse 15 % • Faible bruit pour le jeu occasionnel et le multimédia</string>
+    <string name="fan_profile_quiet_desc">Vitesse 30 % • Faible bruit pour le jeu occasionnel et le multimédia</string>
     <string name="fan_profile_medium">Moyen</string>
-    <string name="fan_profile_medium_desc">Vitesse 40 % • Équilibre entre flux d\'air et acoustique</string>
+    <string name="fan_profile_medium_desc">Vitesse 50 % • Équilibre entre flux d\'air et acoustique</string>
     <string name="fan_profile_high">Élevé</string>
     <string name="fan_profile_high_desc">Vitesse 70 % • Refroidissement performant pour jeux 3D exigeants</string>
     <string name="fan_profile_max">Maximum</string>

@@ -16,8 +16,8 @@ enum class FanProfile(
     @StringRes val descRes: Int,
 ) {
     AUTO("auto", 0, 0, R.string.fan_profile_auto, R.string.fan_profile_auto_desc),
-    QUIET("quiet", 38, 15, R.string.fan_profile_quiet, R.string.fan_profile_quiet_desc),
-    MEDIUM("medium", 102, 40, R.string.fan_profile_medium, R.string.fan_profile_medium_desc),
+    QUIET("quiet", 77, 30, R.string.fan_profile_quiet, R.string.fan_profile_quiet_desc),
+    MEDIUM("medium", 128, 50, R.string.fan_profile_medium, R.string.fan_profile_medium_desc),
     HIGH("high", 178, 70, R.string.fan_profile_high, R.string.fan_profile_high_desc),
     MAX("max", 255, 100, R.string.fan_profile_max, R.string.fan_profile_max_desc);
 

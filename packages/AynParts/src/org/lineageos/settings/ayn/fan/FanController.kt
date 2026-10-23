@@ -128,8 +128,8 @@ object FanController {
         fanCoolingDeviceNode?.let { cdevNode ->
             val cdevState = when (profile) {
                 FanProfile.AUTO -> 0
-                FanProfile.QUIET -> 1   // State 1: 40 PWM (~15%)
-                FanProfile.MEDIUM -> 5  // State 5: 100 PWM (~40%)
+                FanProfile.QUIET -> 3   // State 3: 75 PWM (~30%)
+                FanProfile.MEDIUM -> 6  // State 6: 120 PWM (~50%)
                 FanProfile.HIGH -> 8    // State 8: 175 PWM (~70%)
                 FanProfile.MAX -> 8     // State 8: 175 PWM + override
             }
