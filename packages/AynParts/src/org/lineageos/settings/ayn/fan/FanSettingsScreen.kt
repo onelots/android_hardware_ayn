@@ -70,6 +70,7 @@ fun FanSettingsScreen(onBack: () -> Unit) {
     var currentProfile by remember { mutableStateOf(FanController.getCurrentProfile(context)) }
     var actualPwm by remember { mutableIntStateOf(FanController.getActualPwm()) }
     var temperature by remember { mutableStateOf(FanController.getSocTemperature()) }
+    var curveSpeeds by remember { mutableStateOf(FanCurve.getCurve(context)) }
 
     LaunchedEffect(Unit) {
         while (true) {
@@ -85,6 +86,7 @@ fun FanSettingsScreen(onBack: () -> Unit) {
         FanProfile.MEDIUM -> 1100
         FanProfile.HIGH -> 750
         FanProfile.MAX -> 400
+        FanProfile.CUSTOM -> if (actualPwm > 0) (2200 - (actualPwm * 7)).coerceIn(400, 2200) else 0
     }
 
     val infiniteTransition = rememberInfiniteTransition(label = "fan_rotation")
@@ -186,12 +188,14 @@ fun FanSettingsScreen(onBack: () -> Unit) {
                             color = MaterialTheme.colorScheme.onSurface,
                         )
 
+                        val statusSubtitle = when (currentProfile) {
+                            FanProfile.AUTO -> stringResource(R.string.fan_status_dynamic)
+                            FanProfile.CUSTOM -> stringResource(R.string.fan_profile_custom_desc)
+                            else -> stringResource(R.string.fan_status_manual, currentProfile.percentage)
+                        }
+
                         Text(
-                            text = if (currentProfile == FanProfile.AUTO) {
-                                stringResource(R.string.fan_status_dynamic)
-                            } else {
-                                stringResource(R.string.fan_status_manual, currentProfile.percentage)
-                            },
+                            text = statusSubtitle,
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -336,7 +340,7 @@ fun FanSettingsScreen(onBack: () -> Unit) {
                                                 color = MaterialTheme.colorScheme.onSurface,
                                             )
 
-                                            if (profile != FanProfile.AUTO) {
+                                            if (profile != FanProfile.AUTO && profile != FanProfile.CUSTOM) {
                                                 Surface(
                                                     shape = RoundedCornerShape(8.dp),
                                                     color = if (isSelected) {
@@ -394,6 +398,33 @@ fun FanSettingsScreen(onBack: () -> Unit) {
                         }
                     }
                 }
+
+                // Section: CUSTOM FAN CURVE
+                FanCurveSection(
+                    curveSpeeds = curveSpeeds,
+                    temperature = temperature,
+                    onPointChanged = { index, newSpeed ->
+                        FanCurve.setPoint(context, index, newSpeed)
+                        curveSpeeds = FanCurve.getCurve(context)
+                        if (currentProfile == FanProfile.CUSTOM) {
+                            temperature?.let { temp ->
+                                val targetSpeed = FanCurve.evaluate(curveSpeeds, temp)
+                                FanController.setCustomPwm(targetSpeed)
+                                actualPwm = FanController.getActualPwm()
+                            }
+                        }
+                    },
+                    onReset = {
+                        curveSpeeds = FanCurve.resetToDefault(context)
+                        if (currentProfile == FanProfile.CUSTOM) {
+                            temperature?.let { temp ->
+                                val targetSpeed = FanCurve.evaluate(curveSpeeds, temp)
+                                FanController.setCustomPwm(targetSpeed)
+                                actualPwm = FanController.getActualPwm()
+                            }
+                        }
+                    },
+                )
 
                 Spacer(modifier = Modifier.height(16.dp))
             }
