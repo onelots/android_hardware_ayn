@@ -5,8 +5,6 @@
 
 package org.lineageos.settings.ayn.fan
 
-import android.app.PendingIntent
-import android.content.Intent
 import android.graphics.drawable.Icon
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
@@ -52,22 +50,8 @@ class FanTileService : TileService() {
 
     override fun onClick() {
         super.onClick()
-        val intent = Intent(this, FanDialogActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        }
-        val pendingIntent = PendingIntent.getActivity(
-            this,
-            0,
-            intent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
-        )
-        if (isLocked) {
-            unlockAndRun {
-                startActivityAndCollapse(pendingIntent)
-            }
-        } else {
-            startActivityAndCollapse(pendingIntent)
-        }
+        val next = FanController.cycleProfile(this)
+        updateTile(next)
     }
 
     private fun updateTile(currentProfile: FanProfile = FanController.getCurrentProfile(this)) {

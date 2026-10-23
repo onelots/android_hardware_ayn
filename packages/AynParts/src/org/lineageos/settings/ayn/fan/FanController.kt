@@ -117,11 +117,22 @@ object FanController {
         }
     }
 
+    private val CYCLED_PROFILES = listOf(
+        FanProfile.AUTO,
+        FanProfile.QUIET,
+        FanProfile.MEDIUM,
+        FanProfile.HIGH,
+        FanProfile.MAX,
+    )
+
     fun cycleProfile(context: Context): FanProfile {
         val current = getCurrentProfile(context)
-        val profiles = FanProfile.entries
-        val nextIndex = (profiles.indexOf(current) + 1) % profiles.size
-        val next = profiles[nextIndex]
+        val currentIndex = CYCLED_PROFILES.indexOf(current)
+        val next = if (currentIndex == -1 || currentIndex >= CYCLED_PROFILES.size - 1) {
+            CYCLED_PROFILES[0]
+        } else {
+            CYCLED_PROFILES[currentIndex + 1]
+        }
         setProfile(context, next)
         return next
     }
